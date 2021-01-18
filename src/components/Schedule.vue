@@ -1,40 +1,28 @@
 <template>
   <v-container>
     <div v-if="showSelectNeeded">
-      <v-alert icon="mdi-school" prominent text type="info">
-        Выберите класс для просмотра расписания
-      </v-alert>
+      <v-alert icon="mdi-school" prominent text type="info">Выберите класс для просмотра расписания</v-alert>
     </div>
+
     <div v-if="showWarning">
-      <v-alert text prominent type="error">
-        Расписание не найдено
-      </v-alert>
+      <v-alert text prominent type="error">Расписание не найдено</v-alert>
     </div>
+
     <v-col>
-      <v-select
-          :items="classes"
-          :menu-props="{ top: true, offsetY: true }"
-          label="Номер класс"
-          v-model="classNumber"
-      ></v-select>
+      <v-select :items="classes" :menu-props="{ top: true, offsetY: true }" label="Номер класса" v-model="classNumber"></v-select>
     </v-col>
+
     <v-col>
-      <v-select
-          :items="letters"
-          :menu-props="{ top: true, offsetY: true }"
-          label="Буква"
-          v-model="classLetter"
-      ></v-select>
+      <v-select :items="letters" :menu-props="{ top: true, offsetY: true }" label="Буква" v-model="classLetter"></v-select>
     </v-col>
+
     <v-col>
       <v-btn @click="loadSchedule">Применить</v-btn>
     </v-col>
+
     <div v-if="showSchedule">
       <v-col v-for="day in days" :key="day.number" cols="12">
-        <ScheduleItem
-            v-bind:schedule="posts.filter(item => item.day === day.number)"
-            v-bind:dayOfWeek="day"
-        />
+        <ScheduleItem v-bind:schedule="posts.filter(item => item.day === day.number)" v-bind:dayOfWeek="day"/>
       </v-col>
     </div>
   </v-container>
